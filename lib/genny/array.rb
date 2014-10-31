@@ -10,7 +10,7 @@ module Genny
     #
     # @example Specifying classes
     #     Genny::Array.genny(items: [Genny::Integer, JSONSchema.new("type" => "string", "format" => "ipv4")])
-    #     # => ["mcztjgoriq", "nohfcavjyz", 739]
+    #     # => [739, "183.16.22.90", 87]
     #
     # @param [Hash] opts Options for the generator
     # @option opts [Array<#genny>,#genny] :items The items which should be used to populate the array

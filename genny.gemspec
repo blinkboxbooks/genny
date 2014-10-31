@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-p __dir__ = File.expand_path(File.join(__FILE__, ".."))
+__dir__ = File.expand_path(File.join(__FILE__, ".."))
 $LOAD_PATH.unshift(File.join(__dir__, "lib"))
 
 Gem::Specification.new do |gem|
