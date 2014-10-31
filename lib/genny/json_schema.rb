@@ -15,8 +15,8 @@ class JSONSchema < SimpleDelegator
     super(hash)
   end
 
-  def genny
-    opts = Genny.symbolize(self)
+  def genny(additional_opts = {})
+    opts = Genny.symbolize(self.merge(additional_opts))
     return opts[:enum].sample if opts.has_key?(:enum)
     return schema_from_ref(opts[:'$ref']).genny if opts[:'$ref']
 

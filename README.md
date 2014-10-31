@@ -64,13 +64,25 @@ js.genny
 
 ### Arrays
 
-A generated array will always be empty unless a `:classes` option has been defined. Any class in that array that responds to `genny` may be picked as the prototype for an element of the generated array.
+A generated array will always be empty unless a `:items` option has been defined. Any class in that array that responds to `genny` may be picked as the prototype for an element of the generated array.
 
 ```
 Genny::Array.genny
 # => []
 
-Genny::Array.genny(classes: [Genny::String, Genny::Integer])
+Genny::Array.genny(items: [Genny::String, Genny::Integer])
+# => ["mcztjgoriq", "nohfcavjyz", 739]
+
+Genny::Array.genny(
+  items: JSONSchema.new(
+    "type" => "object",
+    "properties" => {
+      "key" => {
+        "type" => "string"
+      }
+    }
+  )
+)
 # => ["mcztjgoriq", "nohfcavjyz", 739]
 ```
 

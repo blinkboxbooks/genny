@@ -53,6 +53,8 @@ enum:
     - val1
     - val2
 array:
-  - type: array
-    items:
+  - items:
       type: string
+  - items:
+      - type: string
+      - type: integer
