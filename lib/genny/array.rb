@@ -21,7 +21,7 @@ module Genny
     # @return [Array]
     def self.genny(opts = {})
       opts = Genny.symbolize(opts)
-      opts[:items] = opts[:items].is_a?(Array) ? opts[:items] : [opts[:items]].compact
+      opts[:items] = opts[:items].is_a?(::Array) ? opts[:items] : [opts[:items]].compact
       raise ArgumentError, "classes must be an array" unless opts[:items].respond_to?(:select)
       items = opts[:items].select { |item| item.respond_to?(:genny) }
       if items.empty?
@@ -29,7 +29,7 @@ module Genny
         return []
       end
       min_count = opts[:minItems] || 1
-      max_count = opts[:maxItems] || [opts[:minItems], 5].max
+      max_count = opts[:maxItems] || [min_count, 5].max
       raise "maxItems is lower than minItems" if max_count < min_count
       count = Random.rand(max_count - min_count + 1) + min_count
       return count.times.map { items.sample.genny }
