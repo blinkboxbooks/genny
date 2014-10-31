@@ -179,3 +179,5 @@ Yes please! Pull requests would be lovely.
 ## Contact
 
 I am [@jphastings](https://twitter.com/jphastings) and I work at [blinkbox Books](https://github.com/blinkboxbooks), do get in touch.
+
+Also, let's have none of this gif/jif nonsense. Unless it sounds *ugly* in your language, you have just finished reading the documentation for **/jeni/** ;)
