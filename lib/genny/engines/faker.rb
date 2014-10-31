@@ -29,5 +29,10 @@ begin
     next unless opts[:hint].downcase.match("email")
     Faker::Internet.safe_email
   end
+
+  # Email address as format
+  Genny::String.format("email") do |opts|
+    Faker::Internet.safe_email
+  end
 rescue LoadError
 end

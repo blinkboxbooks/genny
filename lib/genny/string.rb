@@ -32,5 +32,6 @@ module Genny
     format("ipv4")      { |opts| 4.times.map { Random.rand(255) }.join(".") }
     format("ipv6")      { |opts| 8.times.map { Random.rand(65536).to_s(16).rjust(4, "0") }.join(":") }
     format("uri")       { |opts| Genny::URI.genny(opts).to_s }
+    format("email")     { |opts| Genny::String.genny + "@example.com" }
   end
 end
