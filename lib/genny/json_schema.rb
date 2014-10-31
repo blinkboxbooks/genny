@@ -36,6 +36,7 @@ class JSONSchema < SimpleDelegator
 
   private
 
+  # Deals with JSON-Schema valid "#/definitions/xyz" style references and Swagger style "Thing" style.
   def schema_from_ref(name)
     if self['definitions'][name]
       subschema = self['definitions'][name]
