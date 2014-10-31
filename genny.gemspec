@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+p __dir__ = File.expand_path(File.join(__FILE__, ".."))
 $LOAD_PATH.unshift(File.join(__dir__, "lib"))
 
 Gem::Specification.new do |gem|
@@ -12,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["jphastings@gmail.com"]
   gem.description   = %q{Genny likes to make things up. It generates ruby objects, mainly from JSON Schema.}
   gem.summary       = %q{Genny likes to make things up. It generates ruby objects, mainly from JSON Schema.}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/blinkboxbooks/genny"
 
   gem.files         = Dir["lib/**/*.rb","VERSION"]
   gem.extra_rdoc_files = Dir["**/*.md"]
