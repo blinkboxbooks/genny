@@ -3,3 +3,12 @@ rvm:
 - 2.0.0
 - 2.1.1
 - 2.1.2
+deploy:
+  provider: rubygems
+  api_key:
+    secure: JZ75Bc6uZQTDNvpQHJiZ+AvmY8JgFjbMpfNzAAktxByd+kk/8dvRspMesWWRH1pCewyReBpPEMFih7FoJBUMAIIHYOG9Ixe8VRC8tvXqIOIabSovUmnd78f1JP5A9fv3CmFLmi1hctd6qi515z0WF93QrmU12Z/99m7PMaukics=
+  gem: genny
+  on:
+    repo: blinkboxbooks/genny
+    rvm: 2.1.2
+    branch: master
