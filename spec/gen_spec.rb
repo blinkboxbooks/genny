@@ -1,4 +1,5 @@
 require "yaml"
+require "json"
 
 context JSONSchema do
   test_schema = YAML.load(open(File.join(__dir__, "example_schema.yaml")))
