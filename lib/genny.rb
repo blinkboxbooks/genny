@@ -1,0 +1,15 @@
+require "genny/base"
+
+require "genny/nil"
+require "genny/uri"
+require "genny/time"
+require "genny/date"
+require "genny/array"
+require "genny/float"
+require "genny/string"
+require "genny/regexp"
+require "genny/integer"
+require "genny/boolean"
+require "genny/json_schema"
+
+require "genny/engines/faker"
