@@ -71,7 +71,15 @@ module Genny
 
     def self.genny(opts = {})
       opts = Genny.symbolize(opts)
-      ::Hash[(opts[:properties] || {}).map { |key, schema_object|
+      opts[:additional_properties_n] ||= 3
+      raise "additional_properties_n must be an integer" unless opts[:additional_properties_n] >= 0
+      opts[:properties] ||= {}
+      if opts[:additionalProperties].is_a?(::Hash)
+        (opts[:additional_properties_n] * @@additional_properties).round.times do |i|
+          opts[:properties]["gennyAdditionalProperty#{i + 1}"] ||= opts[:additionalProperties]
+        end
+      end
+      ::Hash[opts[:properties].map { |key, schema_object|
         next nil if !(opts[:required] || []).include?(key) && Random.rand > @@additional_properties
         [
           key,
