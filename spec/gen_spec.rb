@@ -14,4 +14,32 @@ context JSONSchema do
       end
     end
   end
+
+  describe "Regexp instances" do
+    [
+      %r{^[a-z]{10}$},
+      %r{^[a-z]{5,6}$},
+      %r{^[a-z]{5,}$},
+      %r{^[a-z]{,2}$},
+      %r{^[a-z]{6,}$},
+      %r{^[a-z]{10}$},
+      %r{[a-z]+},
+      %r{[a-z]+?},
+      %r{[a-z]*},
+      %r{[a-z]*?},
+      %r{[a-z]},
+      %r{[a-b]},
+      %r{[0-9]{2}},
+      %r{a},
+      %r{(abc)},
+      %r{(abc){1,2}},
+      %r{^(?:abc)$},
+      %r{^(?<group>abc)$}
+    ].each do |re|
+      it "must generate a valid string for #{re.source}" do
+        generated = re.extend(Genny::Regexp).genny
+        expect(generated).to match(re)
+      end
+    end
+  end
 end
