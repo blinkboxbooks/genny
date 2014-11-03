@@ -31,6 +31,10 @@ class JSONSchema < SimpleDelegator
       nil => Genny::Hash
     }[opts[:type]]
     raise "Cannot generate JSON Schema object of type '#{opts[:type]}'." unless klass.respond_to?(:genny)
+    # Convert the JSONSchema items object into something Array.genny can cope with
+    opts[:items] = (opts[:items].is_a?(::Array) ? opts[:items] : [opts[:items]].compact).map do |item|
+      JSONSchema.new(item, definitions: opts[:definitions])
+    end if klass == Genny::Array
     klass.genny(opts)
   end
 
