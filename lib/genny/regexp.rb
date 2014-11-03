@@ -23,7 +23,7 @@ module Genny
     private
 
     def generate_from_regexp_string(string, opts = {})
-      string.scan(/(?:\[([^\]]+)\]|\((?:\?<[^>]+>|\?:)?([^\)]*)\)|([^\^\$]))(\*\??|\+\??|\{(\d*),?(\d*)\})?/).map do |group|
+      string.scan(/(?:\[([^\]]+)\]|\((?:\?<[^>]+>|\?:)?([^\)]*)\)|\\?([^\^\$]))(\*\??|\+\??|\{(\d*),?(\d*)\})?/).map do |group|
         ranges, subexpr, char, limit, min, max = group
         if !ranges.nil?
           chars = array_from_ranges(ranges)
