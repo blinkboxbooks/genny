@@ -76,7 +76,7 @@ module Genny
       opts[:properties] ||= {}
       if opts[:additionalProperties].is_a?(::Hash)
         (opts[:additional_properties_n] * @@additional_properties).round.times do |i|
-          opts[:properties]["gennyAdditionalProperty#{i + 1}"] = opts[:additionalProperties]
+          opts[:properties]["gennyAdditionalProperty#{i + 1}"] ||= opts[:additionalProperties]
         end
       end
       ::Hash[opts[:properties].map { |key, schema_object|
