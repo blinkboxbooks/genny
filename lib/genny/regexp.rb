@@ -23,13 +23,16 @@ module Genny
     private
 
     def generate_from_regexp_string(string, opts = {})
-      string.scan(/(?:\[([^\]]+)\]|\((?:\?<[^>]+>|\?:)?([^\)]*)\)|\\?([^\^\$]))(\*\??|\+\??|\{(\d*),?(\d*)\})?/).map do |group|
-        ranges, subexpr, char, limit, min, max = group
+      string.sub!(/^\^?(.+?)\$?$/, '\1')
+      string.scan(/(?:\[([^\]]+)\]|\((?:\?<[^>]+>|\?:)?(.*)\)|\\([*+?\\\{\}\[\]WwDdSs.^$])|([^*+?\{\}\[\]]))(\*\??|\+\??|\{(\d*),?(\d*)\})?/).map do |group|
+        ranges, subexpr, special_char, char, limit, min, max = group
         if !ranges.nil?
           chars = array_from_ranges(ranges)
           get_char = proc { chars.sample }
         elsif !subexpr.nil?
           get_char = proc { generate_from_regexp_string(subexpr, opts) }
+        elsif !special_char.nil?
+          get_char = special_char_parser(special_char)
         else
           get_char = proc { char }
         end
@@ -59,6 +62,25 @@ module Genny
         else
           all.push(*(match[1]..match[2]).to_a)
         end
+      end
+    end
+
+    def special_char_parser(special_char)
+      case special_char
+      when "w"
+        proc { (('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a + %w{_}).sample }
+      when "W"
+        proc { ((" ".."/").to_a + ("[".."`").to_a + ("{".."~").to_a - %{_}).sample }
+      when "d"
+        proc { ("0".."9").to_a.smaple }
+      when "D"
+        proc { (('a'..'z').to_a + ('A'..'Z').to_a).sample }
+      when "s"
+        proc { " " }
+      when "S"
+        proc { (' '..'~').to_a .sample }
+      else
+        proc { special_char }
       end
     end
   end

@@ -39,7 +39,12 @@ context JSONSchema do
       %r{^(?:abc)$},
       %r{^(?<group>abc)$},
       # Special characters
-      %r{^\?$}
+      %r{^\?$},
+      %r{^\.$},
+      %r{^.$},
+      %r{^\^$},
+      %r{^\$$},
+      %r{^\\$}
     ].each do |re|
       it "must generate a valid string for #{re.source}" do
         generated = re.extend(Genny::Regexp).genny
