@@ -14,10 +14,12 @@ module Genny
     def genny(opts = {})
       raise NotImplementedError, "This regular expression doesn't seem to support the `source` method" unless self.respond_to?(:source)
       begin
-        generate_from_regexp_string(self.source, DEFAULT_OPTS.merge(opts))
+        str = generate_from_regexp_string(self.source, DEFAULT_OPTS.merge(opts))
+        raise unless str.match(self)
       rescue
         raise NotImplementedError, "Looks like Genny doesn't support the regular expression #{self.source}. Feel like adding support? https://github.com/blinkboxbooks/genny"
       end
+      str
     end
 
     private
