@@ -17,7 +17,7 @@ module Genny
         str = generate_from_regexp_string(self.source, DEFAULT_OPTS.merge(opts))
         raise unless str.match(self)
       rescue
-        raise NotImplementedError, "Looks like Genny doesn't support the regular expression #{self.source}. Feel like adding support? https://github.com/blinkboxbooks/genny"
+        raise NotImplementedError, "Looks like Genny doesn't support the regular expression #{self.source}#{str.nil? ? '.' : ", it made '#{str}'."} Feel like adding support? https://github.com/blinkboxbooks/genny"
       end
       str
     end
@@ -72,9 +72,9 @@ module Genny
       when "w"
         proc { (('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a + %w{_}).sample }
       when "W"
-        proc { ((" ".."/").to_a + ("[".."`").to_a + ("{".."~").to_a - %{_}).sample }
+        proc { ((" ".."/").to_a + ("[".."`").to_a + ("{".."~").to_a - %w{_}).sample }
       when "d"
-        proc { ("0".."9").to_a.smaple }
+        proc { ("0".."9").to_a.sample }
       when "D"
         proc { (('a'..'z').to_a + ('A'..'Z').to_a).sample }
       when "s"

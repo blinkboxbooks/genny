@@ -17,6 +17,9 @@ module Genny
       opts = Genny.symbolize(opts)
       viable_formats = @@formats.keys & [*opts[:format]]
       return @@formats[viable_formats.sample].call(opts) unless viable_formats.empty?
+      if (re = ::Regexp.new(opts[:format]) rescue false)
+        return re.extend(Genny::Regexp).genny
+      end
       guess = @@hints.inject(nil) { |guess, hint|
         break guess if !(guess = hint.call(opts)).nil?
       } if opts[:hint]

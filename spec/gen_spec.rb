@@ -44,10 +44,31 @@ context JSONSchema do
       %r{^.$},
       %r{^\^$},
       %r{^\$$},
-      %r{^\\$}
+      %r{^\\$},
+      %r{^\w$},
+      %r{^\W$},
+      %r{^\s$},
+      %r{^\S$},
+      %r{^\d$},
+      %r{^\D$},
+      %r{^979\d{10}$}
     ].each do |re|
       it "must generate a valid string for #{re.source}" do
         generated = re.extend(Genny::Regexp).genny
+        expect(generated).to match(re)
+      end
+    end
+  end
+
+  describe "strings with regexp formats" do
+    [
+      %r{(abc){1,2}},
+      %r{^979\d{10}$},
+      %r{\w{5}}
+    ].each do |re|
+      schema = { "type" => "string", "format" => re.source }
+      it "must work with #{schema.to_json}" do
+        generated = JSONSchema.new(schema).genny
         expect(generated).to match(re)
       end
     end
