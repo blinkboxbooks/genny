@@ -176,12 +176,30 @@ Generating a regular expression is a bit useless (it always returns `/.*/` which
 Genny::Regexp.genny
 # => /.*/
 
-# The following hasn't been implemented yet. But soon!
 /[a-f0-9]{2}/.extend(Genny::Regexp).genny
 # => "a7"
 Genny.extend_core
 /[a-f0-9]{2}/.genny
 # => "5c"
+
+# You can also specify regular expressions as formats for strings
+Genny::String.genny(format: "^979\\d{10}$")
+# => "9790607263440"
+```
+
+**Please note**: Regular expression support is not guaranteed. I mean, I'm parsing regular expressions *with regular expressions* and that way madness lies.
+
+If you're calling `genny` on a regular expression instance, be sure to rescue `NotImplementedError` exceptions, which will be thrown if the generated string doesn't match the Regexp.
+
+If you're generating a string with a format that looks like a regular expression, the worst that will happen is a string will be returned as if no `format` had been specified. If you need a specific regular expression to work and don't feel like driving yourself insane, you can specfify a `format` with the regular expression you need and write your own code to generate it:
+
+```
+Genny::String.format("^(?!un)") do |opts|
+  Genny::String.genny.sub(/^un/, '')
+end
+
+Genny::String.genny(format: "^(?!un)")
+# => "doesntstartwithun"
 ```
 
 ## Contributing
