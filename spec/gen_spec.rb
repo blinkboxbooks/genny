@@ -15,6 +15,65 @@ context JSONSchema do
     end
   end
 
+  describe "Regexp instances" do
+    [
+      # limits
+      %r{^a{10}$},
+      %r{^a{5,6}$},
+      %r{^a{5,}$},
+      %r{^a{,2}$},
+      %r{^a{6,}$},
+      %r{^a{10}$},
+      %r{a+},
+      %r{a+?},
+      %r{a*},
+      %r{a*?},
+      %r{a},
+      # Ranges
+      %r{[a-b]},
+      %r{[0-9]},
+      %r{[A-Z]},
+      # Grouping
+      %r{(abc)},
+      %r{(abc){1,2}},
+      %r{^(?:abc)$},
+      %r{^(?<group>abc)$},
+      # Special characters
+      %r{^\?$},
+      %r{^\.$},
+      %r{^.$},
+      %r{^\^$},
+      %r{^\$$},
+      %r{^\\$},
+      %r{^\w$},
+      %r{^\W$},
+      %r{^\s$},
+      %r{^\S$},
+      %r{^\d$},
+      %r{^\D$},
+      %r{^979\d{10}$}
+    ].each do |re|
+      it "must generate a valid string for #{re.source}" do
+        generated = re.extend(Genny::Regexp).genny
+        expect(generated).to match(re)
+      end
+    end
+  end
+
+  describe "strings with regexp formats" do
+    [
+      %r{(abc){1,2}},
+      %r{^979\d{10}$},
+      %r{\w{5}}
+    ].each do |re|
+      schema = { "type" => "string", "format" => re.source }
+      it "must work with #{schema.to_json}" do
+        generated = JSONSchema.new(schema).genny
+        expect(generated).to match(re)
+      end
+    end
+  end
+
   it "must include objects' additional properties" do
     additional = { "type" => "integer" }
     add_schema = { "additionalProperties" => additional }
