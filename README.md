@@ -1,4 +1,4 @@
-# Genny
+# Genny [![Code Climate](https://codeclimate.com/github/blinkboxbooks/genny/badges/gpa.svg)](https://codeclimate.com/github/blinkboxbooks/genny) [![Test Coverage](https://codeclimate.com/github/blinkboxbooks/genny/badges/coverage.svg)](https://codeclimate.com/github/blinkboxbooks/genny)
 
 Genny likes making things up. Unlike other faker libraries this one is based around generating whole data structures using JSONSchema as a basis.
 
