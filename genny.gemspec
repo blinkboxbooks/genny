@@ -24,4 +24,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "rspec", "~>3.0"
   gem.add_development_dependency "simplecov"
   gem.add_development_dependency "json-schema"
+  gem.add_development_dependency "codeclimate-test-reporter"
 end

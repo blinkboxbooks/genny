@@ -12,3 +12,7 @@ deploy:
     repo: blinkboxbooks/genny
     rvm: 2.1.2
     branch: master
+addons:
+  code_climate:
+    repo_token:
+      secure: RwYWSs+O3Dx50UeKYAtbgk4LDYXVclU1HtQiwMXBZrwfYIO76bZ9l2Oa+DEpvpqIK+He3WMEdQj2xrCUvzjkDfndOSwpKiSEmTgwBqTZTc/IVc35A0G9rNO4Zy7/0QR6ixYLwxvhvHdGHUdE2MZwt28zH92nXBI6um1b0ZW2Ye4=
