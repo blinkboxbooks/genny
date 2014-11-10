@@ -29,7 +29,7 @@ object:
   - properties:
       key:
         type: string
-  # TODO: Figure out why the JSON Schema vlidator thinks these schema are invalid
+  # TODO: Figure out why the JSON Schema validator thinks these schema are invalid
   # # objects with references
   # - properties:
   #     key:
@@ -49,12 +49,14 @@ object:
   #       type: string
 enum:
   # No type for enum
-  - enum:
-    - val1
-    - val2
+  - type: string
+    enum:
+      - val1
+      - val2
 array:
   - items:
-      type: string
-  - items:
-      - type: string
-      - type: integer
+    type: string
+  - uniqueItems: true
+    items:
+    - type: string
+      enum: [a]

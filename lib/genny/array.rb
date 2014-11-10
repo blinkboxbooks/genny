@@ -23,7 +23,7 @@ module Genny
       opts = Genny.symbolize(opts)
       opts[:items] = opts[:items].is_a?(::Array) ? opts[:items] : [opts[:items]].compact
       raise ArgumentError, "classes must be an array" unless opts[:items].respond_to?(:select)
-      items = opts[:items].select { |item| item.respond_to?(:genny) }
+      items = opts[:items].select { |item| item.respond_to?(:genny) }.dup
       if items.empty?
         raise "No items given, cannot populate the array." unless opts[:minItems].to_i == 0
         return []
@@ -32,7 +32,14 @@ module Genny
       max_count = opts[:maxItems] || [min_count, 5].max
       raise "maxItems is lower than minItems" if max_count < min_count
       count = Random.rand(max_count - min_count + 1) + min_count
-      return count.times.map { items.sample.genny }
+      generated = []
+      count.times do
+        break if items.empty?
+        i = Random.rand(0...items.size)
+        generated.push(items[i].genny)
+        items.delete_at(i) if opts[:uniqueItems]
+      end
+      generated
     end
   end
 end
